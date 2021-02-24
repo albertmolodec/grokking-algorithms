@@ -5,8 +5,7 @@ This is the code in the book [Grokking Algorighms](https://www.manning.com/books
 ### TS
 
 ```bash
-npm install -g typescript
-npm install -g ts-node
+npm install -g typescript ts-node
 ts-node FILE_PATH.ts
 ```
 
