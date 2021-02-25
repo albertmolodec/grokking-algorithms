@@ -8,7 +8,6 @@ function recursiveBinarySearch<T>(sortedList: T[], item: T): number | null {
     left: number,
     right: number
   ): number | null {
-
     if (right >= 1) {
       const mid = Math.floor((left + right) / 2)
       const guess: T = sortedList[mid]
