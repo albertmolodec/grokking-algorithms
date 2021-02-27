@@ -17,3 +17,5 @@ function selectionSort(array: number[]): number[] {
 const array = [5, 3, 6, 2, 6, 10]
 
 console.log(selectionSort(array)) // [2, 3, 5, 6, 6, 10]
+
+export {}
