@@ -1,33 +1,33 @@
 type Vertex = 'book' | 'plate' | 'poster' | 'drum' | 'guitar' | 'piano'
 
-type Dir = {
-  vertex: Vertex
-  price: number
+type Edge = {
+  to: Vertex
+  weight: number
 }
 
 type Graph = {
-  [vertex in Vertex]: Dir[]
+  [vertex in Vertex]: Edge[]
 }
 
 type PriceTable = {
-  [vertex in Vertex]: number
+  [to in Vertex]: number
 }
 
 const graph: Graph = {
   book: [
-    { vertex: 'poster', price: 0 },
-    { vertex: 'plate', price: 5 },
+    { to: 'poster', weight: 0 },
+    { to: 'plate', weight: 5 },
   ],
   plate: [
-    { vertex: 'guitar', price: 15 },
-    { vertex: 'drum', price: 20 },
+    { to: 'guitar', weight: 15 },
+    { to: 'drum', weight: 20 },
   ],
   poster: [
-    { vertex: 'guitar', price: 20 },
-    { vertex: 'drum', price: 35 },
+    { to: 'guitar', weight: 20 },
+    { to: 'drum', weight: 35 },
   ],
-  drum: [{ vertex: 'piano', price: 10 }],
-  guitar: [{ vertex: 'piano', price: 20 }],
+  drum: [{ to: 'piano', weight: 10 }],
+  guitar: [{ to: 'piano', weight: 20 }],
   piano: [],
 }
 
@@ -39,10 +39,10 @@ function findShortestPath(graph: Graph, start: Vertex, end: Vertex): number {
   ) as PriceTable
 
   for (let vertex of Object.keys(graph) as Array<Vertex>) {
-    for (let dir of graph[vertex]) {
-      const guess = prices[vertex] + dir.price
-      if (prices[dir.vertex] === Infinity || guess < prices[dir.vertex]) {
-        prices[dir.vertex] = guess
+    for (let edge of graph[vertex]) {
+      const guess = prices[vertex] + edge.weight
+      if (prices[edge.to] === Infinity || guess < prices[edge.to]) {
+        prices[edge.to] = guess
       }
     }
   }
