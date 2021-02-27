@@ -9,8 +9,13 @@ type Graph = {
   [vertex in Vertex]: Edge[]
 }
 
-type PriceTable = {
-  [to in Vertex]: number
+type TableRow = {
+  from?: Vertex
+  weight: number
+}
+
+type Table = {
+  [to in Vertex]: TableRow
 }
 
 const graph: Graph = {
@@ -31,25 +36,44 @@ const graph: Graph = {
   piano: [],
 }
 
-function findShortestPath(graph: Graph, start: Vertex, end: Vertex): number {
-  const prices = Object.fromEntries(
+function findShortestPath(
+  graph: Graph,
+  start: Vertex,
+  end: Vertex
+): { price: number; path: string[] } {
+  // Create table
+  const table = Object.fromEntries(
     Object.keys(graph).map((key) =>
-      key === start ? [key, 0] : [key, Infinity]
+      key === start ? [key, { weight: 0 }] : [key, { weight: Infinity }]
     )
-  ) as PriceTable
+  ) as Table
 
+  // Fill table
   for (let vertex of Object.keys(graph) as Array<Vertex>) {
     for (let edge of graph[vertex]) {
-      const guess = prices[vertex] + edge.weight
-      if (prices[edge.to] === Infinity || guess < prices[edge.to]) {
-        prices[edge.to] = guess
+      const guess = table[vertex].weight + edge.weight
+      if (table[edge.to].weight === Infinity || guess < table[edge.to].weight) {
+        table[edge.to].weight = guess
+        table[edge.to].from = vertex
       }
     }
   }
 
-  return prices[end]
+  // Get path from table
+  const reversedPath: string[] = []
+  let cursor = end
+
+  while (cursor !== start) {
+    cursor = table[cursor].from!
+
+    if (cursor !== start) reversedPath.push(cursor)
+  }
+
+  return { price: table[end].weight, path: reversedPath.reverse() }
 }
 
-console.log(findShortestPath(graph, 'book', 'piano'))
+const start = 'book'
+const end = 'piano'
+const { price, path } = findShortestPath(graph, start, end)
 
-export {}
+console.log(`Price: ${price}$.\nPath: ${start} → ${path.join(' → ')} → ${end}.`)
