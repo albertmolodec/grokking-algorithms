@@ -1,5 +1,5 @@
 # grokking-algorithms
-This is the code in the book [Grokking Algorighms](https://www.manning.com/books/grokking-algorithms) in the Scala and Javascript languages.
+This is the code in the book [Grokking Algorighms](https://www.manning.com/books/grokking-algorithms) in the Scala and Typescript languages.
 
 ## Running
 ### TS
