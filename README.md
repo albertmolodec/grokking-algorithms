@@ -1,7 +1,7 @@
 # grokking-algorithms
 This is the code in the book [Grokking Algorighms](https://www.manning.com/books/grokking-algorithms) in the Scala and Typescript languages.
 
-+ tasks from Scala Book.
+UPD: and the tasks from Scala Book.
 
 ## Running
 ### TS
